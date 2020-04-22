@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-firebase" version="0.2.0" 
+  xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <name>Firebase Plugin</name>
+  <license>MIT</license>
+
+  <engines>
+    <engine name="cordova" version=">=3.2.0" />
+  </engines>
+
+  <js-module name="FirebasePlugin" src="www/firebase.js">
+    <clobbers target="fp" />
+  </js-module>
+
+  <hook type="before_plugin_install" src="scripts/configurations/installDependencies.js" />
+  <hook type="before_plugin_install" src="scripts/configurations/unzipAndCopyConfigurations.js" />
+
+  <preference name="APP_DOMAIN" default="/" />
+  <preference name="APP_PATH" default="/" />
+
+  <platform name="ios">
+    <hook type="after_plugin_install" src="scripts/crashlytics/ios/after_plugin_install.js" />
+    <hook type="before_plugin_uninstall" src="scripts/crashlytics/ios/before_plugin_uninstall.js" />
+    <hook type="before_plugin_install" src="scripts/configurations/unzipAndCopySound.js" />
+
+    <config-file parent="/*" target="config.xml">
+      <feature name="FirebasePlugin">
+        <param name="ios-package" value="FirebasePlugin" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <config-file parent="aps-environment" target="*/Entitlements-Debug.plist">
+      <string>development</string>
+    </config-file>
+    <config-file parent="aps-environment" target="*/Entitlements-Release.plist">
+      <string>production</string>
+    </config-file>
+
+    <resource-file src="GoogleService-Info.plist" target="./GoogleService-Info.plist" />
+
+    <header-file src="src/ios/AppDelegate+FirebasePlugin.h" />
+    <source-file src="src/ios/AppDelegate+FirebasePlugin.m" />
+    <header-file src="src/ios/FirebasePlugin.h" />
+    <source-file src="src/ios/FirebasePlugin.m" />
+    
+<!--<dependency id="cordova-plugin-cocoapod-support" url="https://github.com/blakgeek/cordova-plugin-cocoapods-support.git"/>--> 
+
+<!--
+Like it has
+    <framework src="Fabric" type="podspec" spec="~> 1.9" />
+    <framework src="Crashlytics" type="podspec" spec="~> 3.12" />
+    <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2" />
+    <framework src="FirebaseMessaging" type="podspec" spec="~> 2.2" />
+    <framework src="FirebaseAuth" type="podspec" spec="~> 4.6.1" />
+    <framework src="FirebaseRemoteConfig" type="podspec" spec="~> 4.4.9" />
+    <framework src="FirebasePerformance" type="podspec" spec="~> 1.1.3" />
+
+One attempt
+    <framework src="Fabric" type="podspec" spec="~> 1.9.0" />
+    <framework src="Crashlytics" type="podspec" spec="~> 3.12.0" />
+    <framework src="Firebase/Core" type="podspec" spec="5.14.0"/>
+    <framework src="Firebase/Analytics" type="podspec" spec="~> 5.14.0" />
+    <framework src="Firebase/Messaging" type="podspec" spec="~> 5.14.0" />
+    <framework src="Firebase/Auth" type="podspec" spec="~> 5.14.0" />
+    <framework src="Firebase/RemoteConfig" type="podspec" spec="~> 5.14.0" />
+    <framework src="Firebase/Performance" type="podspec" spec="~> 5.14.0" />
+
+Another attempt
+    <podspec>
+        <config>
+            <source url="https://cdn.cocoapods.org/"/>
+        </config>
+        <pods use-frameworks="true">
+            <pod name="Firebase/Core" spec="6.6.5"/>
+            <pod name="Firebase/Auth" spec="6.5.1"/>
+            <pod name="Firebase/Messaging" spec="4.3.0"/>
+            <pod name="Firebase/Performance" spec="3.1.11"/>
+            <pod name="Firebase/RemoteConfig" spec="4.4.9"/>
+            <pod name="Fabric" spec="1.10.2"/>
+            <pod name="Crashlytics" spec="3.14.0"/>
+      </pods>
+    </podspec>
+--> 
+    
+    <framework src="Fabric" type="podspec" spec="~> 1.9" />
+    <framework src="Crashlytics" type="podspec" spec="~> 3.12" />
+    <framework src="FirebaseAnalytics" type="podspec" spec="~> 4.2" />
+    <framework src="FirebaseMessaging" type="podspec" spec="~> 2.2" />
+    <framework src="FirebaseAuth" type="podspec" spec="~> 4.6.1" />
+    <framework src="FirebaseRemoteConfig" type="podspec" spec="~> 2.1.3" />
+    <framework src="FirebasePerformance" type="podspec" spec="~> 1.1.3" />
+    
+  </platform>
+</plugin>
